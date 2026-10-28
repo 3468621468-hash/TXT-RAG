@@ -2,7 +2,7 @@ jieba
 requests
 
 
-##Motivation & Core Logic
+## Motivation & Core Logic
 
 Before building this script, I was struggling with a limited RAM budget. Vector databases are too resource-intensive, and models easily forget context over time.
 
