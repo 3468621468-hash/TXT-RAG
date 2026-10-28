@@ -30,11 +30,14 @@ while True:#循环
             if liebiao.endswith(".txt"):
                 with open(f"ai.jy/{liebiao}", "r", encoding="utf-8") as f:  # 只读取 #f是盒子
                     neirong = f.read()
-                for ci in guanjianci:  # 套盒子
-                    if ci in neirong:  # 套盒子
-                        print(f'l2系统在{liebiao}里找到了{ci}！')
-                        memory_text += neirong + "\n"
-                        break  # 结束
+                chunks = neirong.split("\n\n")
+                for chunk in chunks:
+                    for ci in guanjianci:  # 套盒子
+                        if ci in chunk:  # 套盒子
+                            print(f'l2系统在{liebiao}里找到了{ci}！')
+                            if chunk.strip() not in memory_text:
+                                memory_text += chunk.strip() + "\n\n"
+                            break  # 结束
     jieguo = (#提示词工程，要参照对应模型的提示词模板
         f'<|im_start|>system\n'
         f'你是一个本地的ai助手，必须结合记忆回答问题。禁止编造身份，不要输出思考过程。如果为记忆空或者没有信息，就忽略然后正常回答\n'
@@ -87,7 +90,7 @@ while True:#循环
             else:
                 os.makedirs('ai.jy', exist_ok=True)#记忆
                 with open('ai.jy/jy.txt', 'a', encoding="utf-8") as jy:
-                    jy.write(cz + '\n')
+                    jy.write(cz + '\n\n')
                 print('让我记一下')
             lishi.clear()
 
